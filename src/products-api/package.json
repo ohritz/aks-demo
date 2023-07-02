@@ -1,0 +1,21 @@
+{
+  "name": "products-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node-dev index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^21.3.2",
+    "hapi-pino": "^12.1.0",
+    "make-promises-safe": "^5.1.0",
+    "mongoose": "^7.3.1"
+  },
+  "devDependencies": {
+    "node-dev": "^8.0.0",
+    "prettier": "^2.8.8"
+  }
+}
