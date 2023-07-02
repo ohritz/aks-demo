@@ -6,8 +6,8 @@ import http from "http";
 import cors from "cors";
 import bodyParser from "body-parser";
 import pino from "pino-http";
-import { resolvers } from "./root-resolvers.js";
-import { typeDefs } from "./root-type-defs.js";
+import { typeDefs } from "./schema/typeDefs.generated";
+import { resolvers } from "./schema/resolvers.generated";
 
 interface MyContext {}
 

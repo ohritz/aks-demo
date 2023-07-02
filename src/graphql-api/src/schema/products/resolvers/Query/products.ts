@@ -1,4 +1,6 @@
-const products = [
+import type { QueryResolvers, Product } from "./../../../types.generated";
+
+const products_data = [
   {
     _id: "a2a38e2c-50a8-48ba-aa81-b7228c5445a3",
     category: "Entertainment",
@@ -22,10 +24,10 @@ const products = [
   },
 ];
 
-export const productsResolver = {
-  Query: {
-    products: () => products.map(mapper),
-  },
+export const products: NonNullable<QueryResolvers["products"]> = async (
+  _parent,
+  _arg,
+  _ctx
+) => {
+  return Promise.resolve(products_data);
 };
-
-const mapper = (product: any) => ({ id: product._id, ...product });

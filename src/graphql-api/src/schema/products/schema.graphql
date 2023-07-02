@@ -1,0 +1,13 @@
+type Query
+
+extend type Query {
+  products: [Product]
+}
+
+type Product {
+  id: ID!
+  name: String!
+  category: String!
+  subCategory: String!
+  createdOn: String!
+}

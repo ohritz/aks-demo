@@ -8,7 +8,8 @@
     "clean": "rimraf ./dist",
     "prestart": "npm run clean && npm run compile",
     "start": " node ./dist/index.js",
-    "dev": "nodemon -I --exec node --experimental-specifier-resolution=node  --loader ts-node/esm ./src/index.ts"
+    "dev": "nodemon -I --exec node --experimental-specifier-resolution=node  --loader ts-node/esm ./src/index.ts",
+    "code-gen": "npx graphql-codegen"
   },
   "keywords": [],
   "author": "",
@@ -21,12 +22,12 @@
     "dataloader": "^2.2.2",
     "express": "^4.18.2",
     "graphql": "^16.7.1",
-    "graphql-tag": "^2.12.6",
     "lodash": "^4.17.21",
     "pino": "^8.14.1",
     "pino-http": "^8.3.3"
   },
   "devDependencies": {
+    "@eddeee888/gcg-typescript-resolver-files": "^0.5.0",
     "@tsconfig/node18": "^18.2.0",
     "@types/cors": "^2.8.13",
     "@types/lodash": "^4.14.195",
