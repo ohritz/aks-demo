@@ -8,8 +8,7 @@ import bodyParser from "body-parser";
 import pino from "pino-http";
 import { typeDefs } from "./schema/typeDefs.generated";
 import { resolvers } from "./schema/resolvers.generated";
-
-interface MyContext {}
+import { AppContext, createContext } from "./context-factory";
 
 // Required logic for integrating with Express
 const app = express();
@@ -23,10 +22,11 @@ app.use(httpLogger);
 
 // Same ApolloServer initialization as before, plus the drain plugin
 // for our httpServer.
-const server = new ApolloServer<MyContext>({
+const server = new ApolloServer<AppContext>({
   typeDefs,
   resolvers,
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+  logger: httpLogger.logger,
 });
 // Ensure we wait for our server to start
 await server.start();
@@ -40,7 +40,7 @@ app.use(
   // expressMiddleware accepts the same arguments:
   // an Apollo Server instance and optional configuration options
   expressMiddleware(server, {
-    context: async ({ req }) => ({ token: req.headers.token }),
+    context: async ({ req }) => createContext(httpLogger.logger),
   })
 );
 

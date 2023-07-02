@@ -1,5 +1,6 @@
 import { GraphQLResolveInfo } from 'graphql';
 import { ProductMapper } from './products/schema.mappers';
+import { AppContext } from '../../src/context-factory';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -117,7 +118,7 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
 };
 
-export type ProductResolvers<ContextType = any, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
+export type ProductResolvers<ContextType = AppContext, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
   category?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdOn?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
@@ -126,11 +127,11 @@ export type ProductResolvers<ContextType = any, ParentType extends ResolversPare
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+export type QueryResolvers<ContextType = AppContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   products?: Resolver<Maybe<Array<Maybe<ResolversTypes['Product']>>>, ParentType, ContextType>;
 };
 
-export type Resolvers<ContextType = any> = {
+export type Resolvers<ContextType = AppContext> = {
   Product?: ProductResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
 };
