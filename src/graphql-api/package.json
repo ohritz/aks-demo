@@ -1,0 +1,42 @@
+{
+  "name": "graphql-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile": "tsc",
+    "clean": "rimraf ./dist",
+    "prestart": "npm run clean && npm run compile",
+    "start": " node ./dist/index.js",
+    "dev": "nodemon -I --exec node --experimental-specifier-resolution=node  --loader ts-node/esm ./src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@apollo/server": "^4.7.5",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dataloader": "^2.2.2",
+    "express": "^4.18.2",
+    "graphql": "^16.7.1",
+    "graphql-tag": "^2.12.6",
+    "lodash": "^4.17.21",
+    "pino": "^8.14.1",
+    "pino-http": "^8.3.3"
+  },
+  "devDependencies": {
+    "@tsconfig/node18": "^18.2.0",
+    "@types/cors": "^2.8.13",
+    "@types/lodash": "^4.14.195",
+    "@types/node": "^20.3.3",
+    "dotenv": "^16.3.1",
+    "eslint": "^8.44.0",
+    "nodemon": "^2.0.22",
+    "prettier": "^2.8.8",
+    "rimraf": "^5.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  }
+}
