@@ -3,29 +3,22 @@
 require('make-promises-safe')
 const {initDatabase} = require("./dal");
 const Hapi = require('@hapi/hapi')
+const Qs = require('qs');
+const {routes} = require("./routes");
 const Pino = require('hapi-pino');
 
 async function start () {
   // Create a server with a host and port
   const server = Hapi.server({
     host: '0.0.0.0',
-    port: 3000
-  })
-
-  // Add the route
-  server.route({
-    method: 'GET',
-    path: '/',
-    handler: async function (request, h) {
-      // request.log is HAPI's standard way of logging
-      request.log(['a', 'b'], 'Request into hello world')
-
-      // a pino instance can also be used, which will be faster
-      request.logger.info('In handler %s', request.path)
-
-      return 'hello world'
+    port: 3000,
+    query: {
+        parser: (query) => Qs.parse(query)
     }
   })
+
+  // Add the routes
+  routes.forEach(route => { server.route(route)});
 
   await server.register(Pino)
   await initDatabase(server.logger);

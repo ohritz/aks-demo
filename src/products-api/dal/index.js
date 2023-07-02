@@ -1,9 +1,14 @@
 const {mongo} = require("./mongodb");
+const { ProductsSchema } = require("./products-schema");
 
 function getDb() {
     return mongo;
 }
 
+async function getProductModel() {
+  const connection = await mongo.connect();
+  return connection.models.Product || connection.model("Product", ProductsSchema, "products");
+}
 
 const createLogConnectionFailureAndContinue =
   (logger) =>
@@ -37,4 +42,4 @@ const initDatabase = async (logger) => {
   }
 };
 
-module.exports = { initDatabase, getDb };
+module.exports = { initDatabase, getDb, getProductModel };

@@ -9,3 +9,5 @@ const ProductsSchema = new Schema({
 });
 
 ProductsSchema.static(ProductStatics)
+
+exports.ProductsSchema = ProductsSchema;
