@@ -3,9 +3,9 @@
     import    { Category } from './categories/resolvers/Category';
 import    { Product } from './products/resolvers/Product';
 import    { categories as Query_categories } from './categories/resolvers/Query/categories';
-import    { products as Query_products } from './products/resolvers/Query/products';
+import    { product as Query_product } from './products/resolvers/Query/product';
     export const resolvers: Resolvers = {
-      Query: { categories: Query_categories,products: Query_products },
+      Query: { categories: Query_categories,product: Query_product },
       
       
       Category: Category,

@@ -9,6 +9,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string | number; }
@@ -37,7 +38,12 @@ export type Product = {
 export type Query = {
   __typename?: 'Query';
   categories?: Maybe<Array<Maybe<Category>>>;
-  products?: Maybe<Array<Maybe<Product>>>;
+  product?: Maybe<Product>;
+};
+
+
+export type QueryProductArgs = {
+  id: Scalars['ID']['input'];
 };
 
 
@@ -147,7 +153,7 @@ export type ProductResolvers<ContextType = AppContext, ParentType extends Resolv
 
 export type QueryResolvers<ContextType = AppContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   categories?: Resolver<Maybe<Array<Maybe<ResolversTypes['Category']>>>, ParentType, ContextType>;
-  products?: Resolver<Maybe<Array<Maybe<ResolversTypes['Product']>>>, ParentType, ContextType>;
+  product?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductArgs, 'id'>>;
 };
 
 export type Resolvers<ContextType = AppContext> = {

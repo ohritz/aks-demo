@@ -13,6 +13,9 @@ export interface ApiProduct {
 export const fetchProducts = async (): Promise<ApiProduct[]> => {
   return await fetchJsonWithGet<ApiProduct[]>(`${baseUrl}/products`);
 };
+export const fetchProductsById = async (id: string): Promise<ApiProduct> => {
+  return await fetchJsonWithGet<ApiProduct>(`${baseUrl}/products/${id}`);
+};
 
 export const fetchProductsByCategories = async (
   categories: readonly string[]
