@@ -1,0 +1,21 @@
+{
+  "folders": [
+    {
+      "name": "products-api",
+      "path": "src/products-api"
+    },
+    {
+      "name": "graphql-api",
+      "path": "src/graphql-api"
+    },
+    {
+      "name": "webapp",
+      "path": "src/frontend"
+    },
+    {
+      "name": "data",
+      "path": "data"
+    }
+  ],
+  "settings": {}
+}
