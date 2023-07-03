@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "compile": "tsc",
+    "build": "tsc",
     "clean": "rimraf ./dist",
-    "prestart": "npm run clean && npm run compile",
-    "start": " node ./dist/index.js",
-    "dev": "nodemon -I --exec node --experimental-specifier-resolution=node  --loader ts-node/esm ./src/index.ts",
+    "prebuild": "npm run clean && npm run compile",
+    "start": "nodemon -I --exec node --experimental-specifier-resolution=node  --loader ts-node/esm ./src/index.ts",
     "code-gen": "npx graphql-codegen"
   },
   "keywords": [],

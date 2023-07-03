@@ -1,10 +1,13 @@
 /* This file was automatically generated. DO NOT UPDATE MANUALLY. */
     import type   { Resolvers } from './types.generated';
-    import    { Product } from './products/resolvers/Product';
+    import    { Category } from './categories/resolvers/Category';
+import    { Product } from './products/resolvers/Product';
+import    { categories as Query_categories } from './categories/resolvers/Query/categories';
 import    { products as Query_products } from './products/resolvers/Query/products';
     export const resolvers: Resolvers = {
-      Query: { products: Query_products },
+      Query: { categories: Query_categories,products: Query_products },
       
       
-      Product: Product
+      Category: Category,
+Product: Product
     }
