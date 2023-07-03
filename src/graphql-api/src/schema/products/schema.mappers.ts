@@ -1,7 +1,3 @@
-export interface ProductMapper {
-  _id: string;
-  category: string;
-  subcategory: string;
-  name: string;
-  createdOn: string;
-}
+import { ApiProduct } from "../../clients/products-api";
+
+export interface ProductMapper extends ApiProduct {}

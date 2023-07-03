@@ -8,7 +8,6 @@ export type HttpMethod = "GET" | HttpMethodWithBody;
 export type HttpMethodWithBody = "POST" | "PUT" | "DELETE" | "PATCH";
 
 export const fetchJsonWithOptionalResponse = async <TResponse>(
-  authorization: string,
   url: string,
   allowNotFound: boolean
 ): Promise<TResponse | undefined> => {
@@ -17,7 +16,6 @@ export const fetchJsonWithOptionalResponse = async <TResponse>(
   const response = await fetch(url, {
     headers: {
       "content-type": "application/json",
-      authorization,
     },
   });
 
@@ -58,7 +56,6 @@ export const fetchJsonWithOptionalResponse = async <TResponse>(
 };
 
 export const fetchResponseBase = async (
-  authorization: string,
   url: string,
   method: HttpMethod,
   validateError: boolean
@@ -68,7 +65,6 @@ export const fetchResponseBase = async (
     method,
     headers: {
       "content-type": "application/json",
-      authorization,
     },
   });
   const duration = Date.now() - start;
@@ -88,7 +84,6 @@ export const fetchResponseBase = async (
 };
 
 export const fetchResponseWithBodyBase = async <TBody>(
-  authorization: string,
   url: string,
   body: TBody,
   method: HttpMethodWithBody,
@@ -99,7 +94,6 @@ export const fetchResponseWithBodyBase = async <TBody>(
     method,
     headers: {
       "content-type": "application/json",
-      authorization,
     },
     body: JSON.stringify(body),
   });
