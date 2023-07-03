@@ -1,6 +1,11 @@
-const { getProductsByCategory, getCategories } = require("./route-handlers");
+const {
+  getProductsByCategory,
+  getCategories,
+  getProductsById,
+} = require("./route-handlers");
 
 exports.routes = [
+  getProductsById,
   getProductsByCategory,
   getCategories,
   {
