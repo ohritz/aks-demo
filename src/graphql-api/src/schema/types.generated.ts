@@ -27,7 +27,7 @@ export type Category = {
 
 export type Product = {
   __typename?: 'Product';
-  category: Scalars['String']['output'];
+  category: Category;
   createdOn: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
@@ -137,7 +137,7 @@ export type CategoryResolvers<ContextType = AppContext, ParentType extends Resol
 };
 
 export type ProductResolvers<ContextType = AppContext, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
-  category?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  category?: Resolver<ResolversTypes['Category'], ParentType, ContextType>;
   createdOn?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;

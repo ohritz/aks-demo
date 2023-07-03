@@ -7,7 +7,7 @@ extend type Query {
 type Product {
   id: ID!
   name: String!
-  category: String!
+  category: Category!
   subCategory: String!
   createdOn: String!
 }

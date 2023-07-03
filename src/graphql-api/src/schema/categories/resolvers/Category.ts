@@ -3,7 +3,7 @@ export const Category: CategoryResolvers = {
   /* Implement Category resolver logic here */
   id: (parent) => parent,
   name: (parent) => parent,
-  products: (parent, args, ctx) => {
-    return [];
+  products: (parent, _, ctx) => {
+    return ctx.loaders.productsByCategory.load(parent);
   },
 };

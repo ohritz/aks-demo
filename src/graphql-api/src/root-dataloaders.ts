@@ -1,7 +1,10 @@
 import { Logger } from "pino";
+import { createProductByCategoryLoader } from "./schema/products/dataloaders";
 
-export interface DataLoaders {}
+export type DataLoaders = ReturnType<typeof createDataLoaders>;
 
-export const createDataLoaders = (logger: Logger): DataLoaders => {
-  return {};
+export const createDataLoaders = (logger: Logger) => {
+  return {
+    productsByCategory: createProductByCategoryLoader(logger),
+  };
 };

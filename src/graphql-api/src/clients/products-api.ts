@@ -14,6 +14,15 @@ export const fetchProducts = async (): Promise<ApiProduct[]> => {
   return await fetchJsonWithGet<ApiProduct[]>(`${baseUrl}/products`);
 };
 
+export const fetchProductsByCategories = async (
+  categories: readonly string[]
+): Promise<ApiProduct[]> => {
+  const categoriesQuery = `categories=${categories.join(",")}`;
+  return await fetchJsonWithGet<ApiProduct[]>(
+    `${baseUrl}/products?${categoriesQuery}`
+  );
+};
+
 export const fetchCategories = async (): Promise<string[]> => {
   return await fetchJsonWithGet<string[]>(`${baseUrl}/categories`);
 };
