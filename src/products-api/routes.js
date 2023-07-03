@@ -1,16 +1,13 @@
-const { getProductsByCategory } = require('./route-handlers');
+const { getProductsByCategory, getCategories } = require("./route-handlers");
 
 exports.routes = [
-    {
-        method: 'GET',
-        path: '/products',
-        handler: getProductsByCategory
+  getProductsByCategory,
+  getCategories,
+  {
+    method: "*",
+    path: "/{any*}",
+    handler: function (request, h) {
+      return h.response("404 Error! Page Not Found!").code(404);
     },
-    {
-        method: '*',
-        path: '/{any*}',
-        handler: function (request, h) {
-            return h.response('404 Error! Page Not Found!').code(404);
-        }
-    }
-]
+  },
+];
