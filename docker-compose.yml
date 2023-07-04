@@ -24,3 +24,18 @@ services:
     ports:
       - "1433:1433"
     hostname: localhost
+  products-api:
+    image: products-api
+    build:
+      context: ./src/products-api
+      dockerfile: Dockerfile
+    depends_on:
+      - products-db
+    networks:
+      - default
+    environment:
+      - PORT=3020
+      - MONGO_DB_URL=mongodb://products-db:27017/products
+    ports:
+      - "3020:3020"
+    hostname: localhost
