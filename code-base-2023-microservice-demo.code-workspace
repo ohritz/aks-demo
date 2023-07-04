@@ -15,6 +15,9 @@
     {
       "name": "data",
       "path": "data"
+    },
+    {
+      "path": "src/price-api"
     }
   ],
   "settings": {}
