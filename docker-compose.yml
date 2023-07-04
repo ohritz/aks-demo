@@ -33,14 +33,3 @@ services:
     ports:
       - "1433:1433"
     hostname: localhost
-  init-sqlserver:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    command: sh -c "sleep 10 && /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P $MSSQL_SA_PASSWORD -d master -i /dbsetup/CreateDatabase.sql"
-    depends_on:
-      - sqlserver
-    environment:
-      - MSSQL_SA_PASSWORD=$MSSQL_SA_PASSWORD
-    networks:
-      - default
-    volumes:
-      - ./data/price-db/dbsetup:/dbsetup

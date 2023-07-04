@@ -15,8 +15,27 @@ public class PriceDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Product>().ToTable("Products");
-        modelBuilder.Entity<ProductPrice>().ToTable("ProductPrices");
+        modelBuilder.Entity<Product>(entity =>
+        {
+            entity.ToTable("Products");
+            entity.HasOne(d => d.ProductPrice)
+                .WithOne(p => p.Product)
+                .HasForeignKey<Product>(d => d.Id)
+                .OnDelete(DeleteBehavior.Cascade);
+            entity.HasIndex(e => e.ExternalId, "IX_Products")
+                .IsUnique();
+        });
+        modelBuilder.Entity<ProductPrice>(entity =>
+        {
+            entity.ToTable("ProductPrices");
+            entity.HasOne(d => d.Product)
+                .WithOne(p => p.ProductPrice);
+            entity.Property(e => e.Currency)
+            .IsRequired()
+            .HasMaxLength(3);
+            entity.Property(e => e.Price)
+                .HasColumnType("decimal(18, 2)");
+        });
     }
 }
 

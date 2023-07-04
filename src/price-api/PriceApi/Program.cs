@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PriceApi.Services;
 using PriceApi.DataAccess;
+using System.Data.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,23 +14,27 @@ builder.Services
 .Services
 .AddGrpcReflection();
 
+var connectionString = builder.Configuration.GetConnectionString("PriceDb");
+
 builder.Services.AddDbContext<PriceDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("PriceDb")));
+    options.UseSqlServer(connectionString));
 
 var app = builder.Build();
 
-app.UseRouting();
 // Configure the HTTP request pipeline.
 // app.MapGrpcService<ProductPriceGrpcService>();
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapGrpcReflectionService();
-    endpoints.MapGrpcService<ProductPriceGrpcService>();
-    endpoints.MapGet(
-                   "/",
-                   async context => await context.Response
-                       .WriteAsync("Communication with gRPC endpoints must be made through a gRPC client.")
-                       .ConfigureAwait(false));
-});
+
+DbInitializer.InitAndSeedDatabase(app.Services);
+
+app.MapGrpcReflectionService();
+app.MapGrpcService<ProductPriceGrpcService>();
+app.MapGet(
+               "/",
+               async context => await context.Response
+                   .WriteAsync("Communication with gRPC endpoints must be made through a gRPC client.")
+                   .ConfigureAwait(false));
+
+
+
 
 app.Run();
