@@ -1,6 +1,7 @@
 using Bogus;
 using PriceApi.DataAccess.Models;
 
+namespace PriceApi.DataAccess;
 public class ProductPriceFakeBuilder : Faker<ProductPrice>
 {
     public ProductPriceFakeBuilder(Product product)

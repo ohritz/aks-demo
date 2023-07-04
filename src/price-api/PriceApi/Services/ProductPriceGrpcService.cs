@@ -1,24 +1,56 @@
 using Grpc.Core;
+using Microsoft.EntityFrameworkCore;
+using PriceApi.DataAccess;
 using PriceApi.Schema;
 
 namespace PriceApi.Services;
 
 public class ProductPriceGrpcService : ProductPriceService.ProductPriceServiceBase
 {
+    private readonly PriceDbContext _dbContext;
     private readonly ILogger<ProductPriceGrpcService> _logger;
-    public ProductPriceGrpcService(ILogger<ProductPriceGrpcService> logger)
+    public ProductPriceGrpcService(ILogger<ProductPriceGrpcService> logger, PriceDbContext dbContext)
     {
         _logger = logger;
+        _dbContext = dbContext;
     }
 
-    public override Task<PricesReply> GetPrices(PricesRequest request, ServerCallContext context)
+    public override async Task<PricesReply> GetPrices(PricesRequest request, ServerCallContext context)
     {
+        var prices = await _dbContext.Products
+            .Where(p => request.Ids.Contains(p.ExternalId))
+            .Select(p => new PriceDetail
+            {
+                Id = p.ExternalId,
+                Price = (float)p.ProductPrice.Price,
+                Currency = p.ProductPrice.Currency
+            })
+            .ToListAsync();
         var reply = new PricesReply();
-        var detail = new PriceDetail();
-        detail.Id = request.Ids[0];
-        detail.Price = 100;
-        detail.Currency = "SEK";
-        reply.PriceDetails.Add(detail);
-        return Task.FromResult(reply);
+
+        reply.PriceDetails.AddRange(prices);
+        return reply;
+    }
+
+    public override async Task<PriceReply> GetPrice(PriceRequest request, ServerCallContext context)
+    {
+        var product = await _dbContext.Products
+            .Where(p => p.ExternalId == request.Id)
+            .Select(p => new PriceDetail
+            {
+                Id = p.ExternalId,
+                Price = (float)p.ProductPrice.Price,
+                Currency = p.ProductPrice.Currency
+            })
+            .FirstOrDefaultAsync();
+        var reply = new PriceReply();
+
+        if (product == null)
+        {
+            throw new RpcException(new Status(StatusCode.NotFound, $"Product with id {request.Id} not found"));
+        }
+
+        reply.PriceDetail = product;
+        return reply;
     }
 }

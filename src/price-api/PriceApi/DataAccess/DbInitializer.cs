@@ -3,6 +3,8 @@ using System.Text.Json.Serialization;
 using PriceApi.DataAccess;
 using PriceApi.DataAccess.Models;
 
+namespace PriceApi.DataAccess;
+
 public static class DbInitializer
 {
 
@@ -26,7 +28,6 @@ public static class DbInitializer
 
         var currentDirectory = Directory.GetCurrentDirectory();
         var relativePath = Path.GetRelativePath(currentDirectory, "../../../data/products-db/products.json");
-        // var relativePath = Path.Combine(currentDirectory, "../../../data/products-db/products.json");
 
 
         // read json file into memory
@@ -46,15 +47,6 @@ public static class DbInitializer
 
         priceDbContext.Products.AddRange(productsToSeed);
         priceDbContext.SaveChanges();
-        // var productPrices = productsToSeed.Select(p => {
-
-        //     var productPrice = new ProductPriceFakeBuilder(p.Id).Generate();
-        //     p
-        //     return productPrice;
-        //     }).ToList();
-
-        // priceDbContext.ProductPrices.AddRange(productPrices);
-        // priceDbContext.SaveChanges();
     }
 
     private class MongoProductJson
@@ -63,11 +55,11 @@ public static class DbInitializer
         public ObjectId Id { get; set; }
 
         [JsonPropertyName("category")]
-        public string Category { get; set; }
+        public string Category { get; set; } = null!;
         [JsonPropertyName("subcategory")]
-        public string Subcategory { get; set; }
+        public string Subcategory { get; set; } = null!;
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
         [JsonPropertyName("createdOn")]
         public DateTime CreatedOn { get; set; }
     }
