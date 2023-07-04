@@ -35,7 +35,7 @@ public static class DbInitializer
         var products = JsonSerializer.Deserialize<List<MongoProductJson>>(productsJson) ?? throw new InvalidOperationException("products is null");
         var productsToSeed = products.Select(p => new Product
         {
-            ExternalId = p.Id.oid,
+            ExternalId = p.Id.Oid,
             Name = p.Name,
         }).ToList();
 
@@ -66,6 +66,6 @@ public static class DbInitializer
     private struct ObjectId
     {
         [JsonPropertyName("$oid")]
-        public string oid { get; set; }
+        public string Oid { get; set; }
     }
 }

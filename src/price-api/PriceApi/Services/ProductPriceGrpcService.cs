@@ -8,10 +8,9 @@ namespace PriceApi.Services;
 public class ProductPriceGrpcService : ProductPriceService.ProductPriceServiceBase
 {
     private readonly PriceDbContext _dbContext;
-    private readonly ILogger<ProductPriceGrpcService> _logger;
-    public ProductPriceGrpcService(ILogger<ProductPriceGrpcService> logger, PriceDbContext dbContext)
+
+    public ProductPriceGrpcService(PriceDbContext dbContext)
     {
-        _logger = logger;
         _dbContext = dbContext;
     }
 
