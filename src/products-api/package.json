@@ -13,11 +13,11 @@
     "hapi-pino": "^12.1.0",
     "make-promises-safe": "^5.1.0",
     "mongoose": "^7.3.1",
-    "pino-pretty": "^10.0.0",
     "qs": "^6.11.2"
   },
   "devDependencies": {
     "node-dev": "^8.0.0",
+    "pino-pretty": "^10.0.1",
     "prettier": "^2.8.8"
   }
 }
