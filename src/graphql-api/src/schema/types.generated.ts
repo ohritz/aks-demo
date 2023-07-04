@@ -39,11 +39,17 @@ export type Query = {
   __typename?: 'Query';
   categories?: Maybe<Array<Maybe<Category>>>;
   product?: Maybe<Product>;
+  productsByCategories?: Maybe<Array<Maybe<Product>>>;
 };
 
 
 export type QueryProductArgs = {
   id: Scalars['ID']['input'];
+};
+
+
+export type QueryProductsByCategoriesArgs = {
+  categories: Array<Scalars['String']['input']>;
 };
 
 
@@ -154,6 +160,7 @@ export type ProductResolvers<ContextType = AppContext, ParentType extends Resolv
 export type QueryResolvers<ContextType = AppContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   categories?: Resolver<Maybe<Array<Maybe<ResolversTypes['Category']>>>, ParentType, ContextType>;
   product?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductArgs, 'id'>>;
+  productsByCategories?: Resolver<Maybe<Array<Maybe<ResolversTypes['Product']>>>, ParentType, ContextType, RequireFields<QueryProductsByCategoriesArgs, 'categories'>>;
 };
 
 export type Resolvers<ContextType = AppContext> = {

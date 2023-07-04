@@ -2,6 +2,7 @@ type Query
 
 extend type Query {
   product(id: ID!): Product
+  productsByCategories(categories: [String!]!): [Product]
 }
 
 type Product {
