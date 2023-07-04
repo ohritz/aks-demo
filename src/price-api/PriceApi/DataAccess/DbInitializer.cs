@@ -14,7 +14,7 @@ public static class DbInitializer
         var services = scope.ServiceProvider;
 
         var context = services.GetRequiredService<PriceDbContext>();
-        context.Database.EnsureDeleted();
+        // context.Database.EnsureDeleted();
         context.Database.EnsureCreated();
         Seed(context);
     }
