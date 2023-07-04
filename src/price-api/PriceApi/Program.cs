@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using PriceApi.Services;
+using PriceApi.DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,9 @@ builder.Services
 .AddGrpc()
 .Services
 .AddGrpcReflection();
+
+builder.Services.AddDbContext<PriceDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PriceDb")));
 
 var app = builder.Build();
 
