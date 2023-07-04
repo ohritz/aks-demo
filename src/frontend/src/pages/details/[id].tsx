@@ -30,6 +30,11 @@ export const getServerSideProps = async (context: NextPageContext) => {
           }
           subCategory
           createdOn
+          price {
+            id
+            currency
+            price
+          }
         }
       }
     `),

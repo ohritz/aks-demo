@@ -11,6 +11,7 @@ import {
 import { Link } from "@chakra-ui/next-js";
 import { ProductsByCategories } from "./use-product-query";
 import { formatDateTimeString } from "../../common/date-format";
+import { roundWithDecimals } from "../../common/number-format";
 
 type Props = {
   products: ProductsByCategories;
@@ -25,6 +26,7 @@ export const ProductTable: FC<Props> = ({ products }) => {
             <Th>Name</Th>
             <Th>Category</Th>
             <Th>Subcategory</Th>
+            <Th>Price</Th>
             <Th>Created on</Th>
           </Tr>
         </Thead>
@@ -41,6 +43,9 @@ export const ProductTable: FC<Props> = ({ products }) => {
                     </Td>
                     <Td>{product.category.name}</Td>
                     <Td>{product.subCategory}</Td>
+                    <Td>{`${roundWithDecimals(product.price.price, 2)} ${
+                      product.price.currency
+                    }`}</Td>
                     <Td>{formatDateTimeString(product.createdOn)}</Td>
                   </Tr>
                 )

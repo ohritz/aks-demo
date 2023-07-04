@@ -13,6 +13,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { ProductQuery } from "../../gql/graphql";
 import React, { FC } from "react";
 import { formatDateTimeString } from "../../common/date-format";
+import { roundWithDecimals } from "../../common/number-format";
 
 type Props = {
   product: ProductQuery["product"];
@@ -40,6 +41,12 @@ export const ProductDetail: FC<Props> = ({ product }) => {
           <Stat>
             <StatLabel>Subcategory</StatLabel>
             <StatLabel>{product.subCategory}</StatLabel>
+          </Stat>
+          <Stat>
+            <StatLabel>Price</StatLabel>
+            <StatLabel>{`${roundWithDecimals(product.price.price, 2)} ${
+              product.price.currency
+            }`}</StatLabel>
           </Stat>
           <Stat>
             <StatLabel>Created On</StatLabel>

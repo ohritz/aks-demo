@@ -12,6 +12,11 @@ const query = graphql(`
       }
       subCategory
       createdOn
+      price {
+        id
+        currency
+        price
+      }
     }
   }
 `);
