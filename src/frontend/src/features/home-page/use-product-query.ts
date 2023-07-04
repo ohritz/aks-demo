@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
-import { graphql } from "../gql";
-import { ProductsByCategoriesQuery } from "../gql/graphql";
+import { graphql } from "../../gql";
+import { ProductsByCategoriesQuery } from "../../gql/graphql";
 const query = graphql(`
   query ProductsByCategories($categories: [String!]!) {
     productsByCategories(categories: $categories) {

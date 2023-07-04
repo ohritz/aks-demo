@@ -1,6 +1,6 @@
 import { Table, Tbody, Tr, Td, TableContainer } from "@chakra-ui/react";
 import { Checkbox, CheckboxGroup } from "@chakra-ui/react";
-import { useSelectedCategories } from "../client/selected-categories";
+import { useSelectedCategories } from "../../client/selected-categories";
 
 export type Category = {
   id: string;

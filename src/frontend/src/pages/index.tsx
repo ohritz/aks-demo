@@ -2,10 +2,10 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
 import { Grid, GridItem } from "@chakra-ui/react";
-import { Categories, Category } from "../components/categories";
+import { Categories, Category } from "../features/home-page/categories";
 import { gql } from "@apollo/client";
 import client from "../client/apollo-client";
-import { ProductTableFetcher } from "../components/product-table-fetcher";
+import { ProductTableFetcher } from "../features/home-page/product-table-fetcher";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({

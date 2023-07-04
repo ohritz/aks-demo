@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { Skeleton, Box } from "@chakra-ui/react";
 import { useProductByCategoriesQuery } from "./use-product-query";
-import { useSelectedCategories } from "../client/selected-categories";
-import { FetchError } from "./fetch-error";
+import { useSelectedCategories } from "../../client/selected-categories";
+import { FetchError } from "../global/fetch-error";
 import { ProductTable } from "./product-table";
 
 type Props = {};
