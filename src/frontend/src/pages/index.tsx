@@ -5,6 +5,7 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import { Categories, Category } from "../components/categories";
 import { gql } from "@apollo/client";
 import client from "../client/apollo-client";
+import { ProductTableFetcher } from "../components/product-table-fetcher";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({
@@ -21,7 +22,9 @@ export default function Home({
         <GridItem h={"100%"}>
           <Categories categories={categories} />
         </GridItem>
-        <GridItem bg="gray.400" />
+        <GridItem bg="gray.300">
+          <ProductTableFetcher />
+        </GridItem>
       </Grid>
     </>
   );
