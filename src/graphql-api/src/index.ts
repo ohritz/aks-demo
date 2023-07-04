@@ -40,7 +40,7 @@ app.use(
   // expressMiddleware accepts the same arguments:
   // an Apollo Server instance and optional configuration options
   expressMiddleware(server, {
-    context: async ({ req }) => createContext(httpLogger.logger),
+    context: async () => createContext(httpLogger.logger),
   })
 );
 

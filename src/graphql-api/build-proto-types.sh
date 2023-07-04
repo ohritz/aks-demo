@@ -1,5 +1,7 @@
 #!/bin/bash
 
+## https://rsbh.dev/blogs/grpc-with-nodejs-typescript
+
 PROTO_DEST=./src/clients/grpc/
 IMPORT_DIR="./proto"
 

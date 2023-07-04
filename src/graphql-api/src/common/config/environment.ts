@@ -1,4 +1,4 @@
-import * as chalk from "chalk";
+import chalk from "chalk";
 import { logger } from "../log/logger-factory";
 const localEnv = process.env.NODE_ENV === "local";
 

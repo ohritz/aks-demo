@@ -12,6 +12,7 @@ export const createProductByCategoryLoader = (
   logger: Logger
 ): ProductByCategoryLoader =>
   new DataLoader<string, ProductMapper[]>(async (categoryIds) => {
+    logger.info("fetching products for {categoryIds}", categoryIds);
     const products = await fetchProductsByCategories(categoryIds);
     return categoryIds.map((categoryId) =>
       products.filter((product) => product.category === categoryId)
@@ -23,6 +24,7 @@ export const createPriceByProductIdLoader = (
 ): PriceByProductIdLoader =>
   new DataLoader<string, Price>(async (productIds) => {
     const prices = await getPrices(productIds);
+    logger.info("fetching prices for {productIds}", productIds);
     return productIds
       .map((productId) => prices.find((price) => price.id === productId))
       .map((price) => ({
