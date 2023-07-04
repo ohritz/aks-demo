@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package PriceApi.Schema;
+
+option csharp_namespace = "PriceApi.Schema";
+
+// The greeting service definition.
+service ProductPriceService {
+  // Sends a greeting
+  rpc GetPrices (PricesRequest) returns (PricesReply);
+  rpc GetPrice (PriceRequest) returns (PriceReply);
+}
+
+// The request message containing the user's name.
+message PricesRequest {
+  repeated string ids = 1;
+}
+message PriceRequest {
+  string id = 1;
+}
+
+// The response message containing the greetings.
+message PricesReply {
+  repeated PriceDetail price_details = 1;
+}
+message PriceReply {
+  PriceDetail price_detail = 1;
+}
+
+message PriceDetail {
+  string id = 1;
+  string currency = 2;
+  float price = 3;
+}

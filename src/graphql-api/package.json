@@ -7,8 +7,10 @@
     "build": "tsc",
     "clean": "rimraf ./dist",
     "prebuild": "npm run clean && npm run compile",
-    "start": "nodemon -I --exec node --experimental-specifier-resolution=node  --loader ts-node/esm ./src/index.ts",
-    "code-gen": "npx graphql-codegen"
+    "start": "nodemon -I --exec node --experimental-specifier-resolution=node -r dotenv/config  --loader ts-node/esm ./src/index.ts",
+    "prettier": "prettier --no-config --write \"src/**/*.ts?(x)\"",
+    "code-gen": "npx graphql-codegen",
+    "grpc-types": "npx rimraf ./src/types/proto && ./build-proto-types.sh"
   },
   "keywords": [],
   "author": "",
@@ -17,10 +19,12 @@
   "dependencies": {
     "@apollo/server": "^4.7.5",
     "@graphql-codegen/cli": "^4.0.1",
+    "@grpc/grpc-js": "^1.8.17",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dataloader": "^2.2.2",
     "express": "^4.18.2",
+    "google-protobuf": "^3.21.2",
     "graphql": "^16.7.1",
     "graphql-scalars": "^1.22.2",
     "lodash": "^4.17.21",
@@ -32,14 +36,18 @@
     "@eddeee888/gcg-typescript-resolver-files": "^0.5.0",
     "@tsconfig/node18": "^18.2.0",
     "@types/cors": "^2.8.13",
+    "@types/google-protobuf": "^3.15.6",
     "@types/lodash": "^4.14.195",
     "@types/node": "^20.3.3",
     "dotenv": "^16.3.1",
     "eslint": "^8.44.0",
+    "grpc_tools_node_protoc_ts": "^5.3.3",
+    "grpc-tools": "^1.12.4",
     "nodemon": "^2.0.22",
     "prettier": "^2.8.8",
     "rimraf": "^5.0.1",
     "ts-node": "^10.9.1",
+    "ts-proto": "^1.151.0",
     "typescript": "^5.1.6"
   }
 }
