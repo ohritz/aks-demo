@@ -1,12 +1,10 @@
 import Head from "next/head";
-import { Inter } from "next/font/google";
 import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
 import { Grid, GridItem } from "@chakra-ui/react";
-import { Categories, Category } from "../features/home-page/categories";
-import { gql } from "@apollo/client";
+import { graphql } from "../gql";
 import client from "../client/apollo-client";
+import { Categories } from "../features/home-page/categories";
 import { ProductTableFetcher } from "../features/home-page/product-table-fetcher";
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({
   categories,
@@ -30,18 +28,16 @@ export default function Home({
   );
 }
 
-export const getServerSideProps: GetServerSideProps<{
-  categories: Category[];
-}> = async () => {
+export const getServerSideProps = async () => {
   const { data } = await client.query({
-    query: gql`
+    query: graphql(`
       query Categories {
         categories {
           id
           name
         }
       }
-    `,
+    `),
   });
 
   return {
