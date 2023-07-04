@@ -1,14 +1,16 @@
 import Head from "next/head";
-import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
+import type { InferGetServerSidePropsType } from "next";
 import { Grid, GridItem } from "@chakra-ui/react";
 import { graphql } from "../gql";
 import client from "../client/apollo-client";
 import { Categories } from "../features/home-page/categories";
 import { ProductTableFetcher } from "../features/home-page/product-table-fetcher";
 
-export default function Home({
+type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
+
+const Home: React.FC<Props> = ({
   categories,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <>
       <Head>
@@ -26,7 +28,9 @@ export default function Home({
       </Grid>
     </>
   );
-}
+};
+
+export default Home;
 
 export const getServerSideProps = async () => {
   const { data } = await client.query({

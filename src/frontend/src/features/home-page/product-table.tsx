@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import { format } from "date-fns";
 import {
   Table,
   Thead,
@@ -9,7 +8,9 @@ import {
   Td,
   TableContainer,
 } from "@chakra-ui/react";
+import { Link } from "@chakra-ui/next-js";
 import { ProductsByCategories } from "./use-product-query";
+import { formatDateTimeString } from "../../common/date-format";
 
 type Props = {
   products: ProductsByCategories;
@@ -33,15 +34,14 @@ export const ProductTable: FC<Props> = ({ products }) => {
               (product) =>
                 product && (
                   <Tr key={product.id}>
-                    <Td>{product.name}</Td>
+                    <Td>
+                      <Link href={`/details/${product.id}`}>
+                        {product.name}
+                      </Link>{" "}
+                    </Td>
                     <Td>{product.category.name}</Td>
                     <Td>{product.subCategory}</Td>
-                    <Td>
-                      {format(
-                        new Date(product.createdOn),
-                        "yyyy/mm/dd (HH:MM)"
-                      )}
-                    </Td>
+                    <Td>{formatDateTimeString(product.createdOn)}</Td>
                   </Tr>
                 )
             )}
