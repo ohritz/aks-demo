@@ -1,6 +1,6 @@
 import { fetchJsonWithGet } from "../common/fetch/http-fetch";
 
-const baseUrl = process.env.PRODUCTS_API_URL || "http://localhost:3000";
+const baseUrl = process.env.PRODUCTS_API_URL || "http://localhost:3020";
 
 export interface ApiProduct {
   _id: string;
