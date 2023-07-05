@@ -1,5 +1,5 @@
 import { Logger } from "pino";
-import { DataLoaders, createDataLoaders } from "./root-dataloaders";
+import { DataLoaders, createDataLoaders } from "./root-dataloaders.js";
 import { BaseContext } from "@apollo/server";
 
 export interface AppContext extends BaseContext {

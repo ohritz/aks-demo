@@ -6,11 +6,11 @@
   "scripts": {
     "build": "tsc",
     "clean": "rimraf ./dist",
-    "prebuild": "npm run clean && npm run compile",
+    "prebuild": "npm run clean",
     "start": "nodemon -I --exec node --experimental-specifier-resolution=node -r dotenv/config  --loader ts-node/esm ./src/index.ts | pino-pretty",
     "prettier": "prettier --no-config --write \"src/**/*.ts\"",
     "lint": "eslint --ext .ts -c .eslintrc.json ./src",
-    "code-gen": "npx graphql-codegen && npm prettier",
+    "code-gen": "npx graphql-codegen-esm --config codegen.ts",
     "grpc-types": "npx rimraf ./src/types/proto && ./build-proto-types.sh && prettier"
   },
   "keywords": [],

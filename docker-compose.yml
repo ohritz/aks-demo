@@ -55,3 +55,19 @@ services:
       - "3030:3030"
     volumes:
       - ./data/products-db/products.json:/app/products.json
+  graphql-api:
+    image: graphql-api
+    build:
+      context: ./src/graphql-api
+      dockerfile: Dockerfile
+    depends_on:
+      - products-api
+      - price-api
+    networks:
+      - default
+    environment:
+      - PORT=3040
+      - PRODUCTS_API_URL=http://products-api:3020
+      - PRICE_API_GRPC_URL=price-api:3030
+    ports:
+      - "3040:3040"

@@ -1,4 +1,4 @@
-import type { PriceResolvers } from "./../../types.generated";
+import type { PriceResolvers } from "./../../types.generated.js";
 export const Price: PriceResolvers = {
   /* Implement Price resolver logic here */
   currency: (parent) => parent.currency,

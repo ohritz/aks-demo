@@ -1,4 +1,4 @@
-import pino from "pino-http";
+import { pinoHttp } from "pino-http";
 
-export const httpLogger = pino();
+export const httpLogger = pinoHttp();
 export const logger = httpLogger.logger;

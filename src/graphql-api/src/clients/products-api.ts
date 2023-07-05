@@ -1,4 +1,4 @@
-import { fetchJsonWithGet } from "../common/fetch/http-fetch";
+import { fetchJsonWithGet } from "../common/fetch/http-fetch.js";
 
 const baseUrl = process.env.PRODUCTS_API_URL || "http://localhost:3020";
 

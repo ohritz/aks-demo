@@ -1,9 +1,9 @@
 import DataLoader from "dataloader";
 import { Logger } from "pino";
-import { ProductMapper } from "./schema.mappers";
-import { fetchProductsByCategories } from "../../clients/products-api";
-import { Price } from "../types.generated";
-import { getPrices } from "../../clients/grpc-price-api-client";
+import { ProductMapper } from "./schema.mappers.js";
+import { fetchProductsByCategories } from "../../clients/products-api.js";
+import { Price } from "../types.generated.js";
+import { getPrices } from "../../clients/grpc-price-api-client.js";
 
 export type ProductByCategoryLoader = DataLoader<string, ProductMapper[]>;
 export type PriceByProductIdLoader = DataLoader<string, Price>;

@@ -1,8 +1,8 @@
 import fetch, { Response } from "node-fetch";
-import { logIfLocal } from "../log/local-logger";
-import { DetailedApiError } from "./detailed-api-error";
-import { formatMs } from "./time-formatter";
-import { throwIfNotOk } from "./validator";
+import { logIfLocal } from "../log/local-logger.js";
+import { DetailedApiError } from "./detailed-api-error.js";
+import { formatMs } from "./time-formatter.js";
+import { throwIfNotOk } from "./validator.js";
 
 export type HttpMethod = "GET" | HttpMethodWithBody;
 export type HttpMethodWithBody = "POST" | "PUT" | "DELETE" | "PATCH";

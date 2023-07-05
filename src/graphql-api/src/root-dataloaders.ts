@@ -2,7 +2,7 @@ import { Logger } from "pino";
 import {
   createProductByCategoryLoader,
   createPriceByProductIdLoader,
-} from "./schema/products/dataloaders";
+} from "./schema/products/dataloaders.js";
 
 export type DataLoaders = ReturnType<typeof createDataLoaders>;
 

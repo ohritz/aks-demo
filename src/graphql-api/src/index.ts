@@ -5,10 +5,10 @@ import express from "express";
 import http from "http";
 import cors from "cors";
 import bodyParser from "body-parser";
-import pino from "pino-http";
-import { typeDefs } from "./schema/typeDefs.generated";
-import { resolvers } from "./schema/resolvers.generated";
-import { AppContext, createContext } from "./context-factory";
+import { pinoHttp } from "pino-http";
+import { typeDefs } from "./schema/typeDefs.generated.js";
+import { resolvers } from "./schema/resolvers.generated.js";
+import { AppContext, createContext } from "./context-factory.js";
 
 // Required logic for integrating with Express
 const app = express();
@@ -16,7 +16,7 @@ const app = express();
 // Below, we tell Apollo Server to "drain" this httpServer,
 // enabling our servers to shut down gracefully.
 const httpServer = http.createServer(app);
-const httpLogger = pino();
+const httpLogger = pinoHttp();
 
 app.use(httpLogger);
 
@@ -44,8 +44,8 @@ app.use(
   })
 );
 
+const port = process.env.PORT || 4000;
+const host = process.env.HOST || "localhost";
 // Modified server startup
-await new Promise<void>((resolve) =>
-  httpServer.listen({ port: 4000 }, resolve)
-);
-httpLogger.logger.info(`🚀 Server ready at http://localhost:4000/`);
+await new Promise<void>((resolve) => httpServer.listen({ port }, resolve));
+httpLogger.logger.info(`🚀 Server ready at http://${host}:${port}/`);

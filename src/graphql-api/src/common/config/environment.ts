@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { logger } from "../log/logger-factory";
+import { logger } from "../log/logger-factory.js";
 const localEnv = process.env.NODE_ENV === "local";
 
 if (localEnv) {
