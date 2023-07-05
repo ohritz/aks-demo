@@ -38,4 +38,20 @@ services:
       - MONGO_DB_URL=mongodb://products-db:27017/products
     ports:
       - "3020:3020"
-    hostname: localhost
+  price-api:
+    image: price-api
+    build:
+      context: ./src/price-api
+      dockerfile: Dockerfile
+    depends_on:
+      - sqlserver
+    networks:
+      - default
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:3030
+      - ConnectionStrings__PriceDb
+      - DATA_JSON_PATH=/app/products.json
+    ports:
+      - "3030:3030"
+    volumes:
+      - ./data/products-db/products.json:/app/products.json

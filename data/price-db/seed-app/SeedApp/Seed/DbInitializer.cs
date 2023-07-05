@@ -16,26 +16,22 @@ public static class DbInitializer
 
         var context = services.GetRequiredService<PriceDbContext>();
         context.Database.EnsureCreated();
+        if (dataJsonPath is null)
+        {
+            return;
+        }
         Seed(context, dataJsonPath);
     }
 
-    private static void Seed(PriceDbContext priceDbContext, string? dataJsonPath)
+    private static void Seed(PriceDbContext priceDbContext, string dataJsonPath)
     {
         if (priceDbContext.Products.Any())
         {
             return;
         }
 
-        var currentDirectory = Directory.GetCurrentDirectory();
-        var relativePath = Path.GetRelativePath(currentDirectory, "../../../data/products-db/products.json");
-
-        if (dataJsonPath != null)
-        {
-            relativePath = dataJsonPath;
-        }
-
         // read json file into memory
-        var productsJson = File.ReadAllText(relativePath);
+        var productsJson = File.ReadAllText(dataJsonPath);
         var products = JsonSerializer.Deserialize<List<MongoProductJson>>(productsJson) ?? throw new InvalidOperationException("products is null");
         var productsToSeed = products.Select(p => new Product
         {
