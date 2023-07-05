@@ -1,9 +1,13 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 
-const client = new ApolloClient({
-  uri: "http://localhost:4000",
+export const browserClient = new ApolloClient({
+  uri: process.env.NEXT_PUBLIC_GRAPHQL_API_URL,
   cache: new InMemoryCache(),
   connectToDevTools: true,
 });
 
-export default client;
+export const serverClient = new ApolloClient({
+  uri: process.env.NEXT_PUBLIC_SERVER_GRAPHQL_API_URL,
+  cache: new InMemoryCache(),
+  connectToDevTools: true,
+});

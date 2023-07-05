@@ -1,6 +1,6 @@
 import type { InferGetServerSidePropsType, NextPageContext } from "next";
 import { graphql } from "../../gql";
-import client from "../../client/apollo-client";
+import { serverClient } from "../../client/apollo-client";
 import { ProductDetail } from "../../features/detail-page/product-detail";
 
 type Props = InferGetServerSidePropsType<typeof getServerSideProps>;
@@ -18,7 +18,7 @@ export const getServerSideProps = async (context: NextPageContext) => {
       notFound: true,
     };
   }
-  const { data } = await client.query({
+  const { data } = await serverClient.query({
     query: graphql(`
       query product($id: ID!) {
         product(id: $id) {

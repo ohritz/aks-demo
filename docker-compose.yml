@@ -71,3 +71,23 @@ services:
       - PRICE_API_GRPC_URL=price-api:3030
     ports:
       - "3040:3040"
+    hostname: graphql-api
+  frontend:
+    image: frontend
+    build:
+      context: ./src/frontend
+      dockerfile: Dockerfile
+      args:
+        - NEXT_PUBLIC_GRAPHQL_API_URL=http://localhost:3080/graphql
+        - NEXT_PUBLIC_SERVER_GRAPHQL_API_URL=http://graphql-api:3040/graphql
+    depends_on:
+      - graphql-api
+    networks:
+      - default
+    environment:
+      - PORT=3050
+      - NEXT_PUBLIC_SERVER_GRAPHQL_API_URL=http://graphql-api:3040/graphql
+  proxy:
+    build: proxy/.
+    ports:
+      - "3080:3080"

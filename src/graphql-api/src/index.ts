@@ -34,7 +34,7 @@ await server.start();
 // Set up our Express middleware to handle CORS, body parsing,
 // and our expressMiddleware function.
 app.use(
-  "/",
+  "/graphql",
   cors<cors.CorsRequest>(),
   bodyParser.json(),
   // expressMiddleware accepts the same arguments:
@@ -48,4 +48,4 @@ const port = process.env.PORT || 4000;
 const host = process.env.HOST || "localhost";
 // Modified server startup
 await new Promise<void>((resolve) => httpServer.listen({ port }, resolve));
-httpLogger.logger.info(`🚀 Server ready at http://${host}:${port}/`);
+httpLogger.logger.info(`🚀 Server ready at http://${host}:${port}/graphql`);
