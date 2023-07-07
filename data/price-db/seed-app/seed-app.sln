@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedApp", "SeedApp\SeedApp.csproj", "{95E468F0-3DD6-4218-9B8D-B928EA97483D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PriceApi", "..\..\..\src\price-api\PriceApi\PriceApi.csproj", "{37B11248-A003-4CEE-99E8-3F1E53F5898A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{95E468F0-3DD6-4218-9B8D-B928EA97483D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95E468F0-3DD6-4218-9B8D-B928EA97483D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95E468F0-3DD6-4218-9B8D-B928EA97483D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95E468F0-3DD6-4218-9B8D-B928EA97483D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37B11248-A003-4CEE-99E8-3F1E53F5898A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37B11248-A003-4CEE-99E8-3F1E53F5898A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37B11248-A003-4CEE-99E8-3F1E53F5898A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37B11248-A003-4CEE-99E8-3F1E53F5898A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

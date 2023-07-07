@@ -1,9 +1,8 @@
 version: "3.9"
 
 networks:
-  default:
-    name: code-base-2023-demo
-    driver: bridge
+  cb-demo-local:
+    external: true
 
 services:
   products-db:
@@ -12,15 +11,7 @@ services:
       - 27017:27017
     networks:
       - default
-  seed-products-db:
-    image: mongo
-    command: mongoimport --host products-db --db products --collection products --type json --file /products.json --jsonArray
-    depends_on:
-      - products-db
-    networks:
-      - default
-    volumes:
-      - ./data/products-db/products.json:/products.json
+    hostname: localhost
   sqlserver:
     image: price-api-sqlserver
     build:

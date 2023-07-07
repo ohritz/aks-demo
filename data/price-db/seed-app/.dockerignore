@@ -1,0 +1,31 @@
+# Developer Ide's supporting files and folders
+.idea/
+**/.idea
+.vs/
+**/.vs
+.vscode/
+**/.vscode
+
+# Files/folders that should not be deployed that is in this repo
+.env
+.git
+.gitignore
+.buidkite/
+**/.buidkite
+deployment_files/
+**/deployment_files
+docker-compose.yml
+docker-compose.*.yml
+**/Dockerfile
+Dockerfile
+build
+.env
+.env-docker-local
+
+# Build artifacts that are produced on the local machine that should not be copied to docker build
+bin
+obj
+**/obj/*
+**/bin/*
+artifacts/
+**/artifacts

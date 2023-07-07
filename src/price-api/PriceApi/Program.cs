@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PriceApi.Services;
 using PriceApi.DataAccess;
-using System.Data.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +14,6 @@ builder.Services
 .AddGrpcReflection();
 
 var connectionString = builder.Configuration.GetConnectionString("PriceDb");
-
 builder.Services.AddDbContext<PriceDbContext>(options =>
     options.UseSqlServer(connectionString));
 
@@ -23,8 +21,6 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 // app.MapGrpcService<ProductPriceGrpcService>();
-
-DbInitializer.InitAndSeedDatabase(app.Services);
 
 app.MapGrpcReflectionService();
 app.MapGrpcService<ProductPriceGrpcService>();

@@ -1,25 +1,25 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Microsoft.Extensions.DependencyInjection;
 using PriceApi.DataAccess;
 using PriceApi.DataAccess.Models;
 
-namespace PriceApi.DataAccess;
+namespace SeedApp.Seed;
 
 public static class DbInitializer
 {
 
-    public static void InitAndSeedDatabase(IServiceProvider appServices)
+    public static void InitAndSeedDatabase(IServiceProvider appServices, string? dataJsonPath)
     {
         using var scope = appServices.CreateScope();
         var services = scope.ServiceProvider;
 
         var context = services.GetRequiredService<PriceDbContext>();
-        // context.Database.EnsureDeleted();
         context.Database.EnsureCreated();
-        Seed(context);
+        Seed(context, dataJsonPath);
     }
 
-    private static void Seed(PriceDbContext priceDbContext)
+    private static void Seed(PriceDbContext priceDbContext, string? dataJsonPath)
     {
         if (priceDbContext.Products.Any())
         {
@@ -29,6 +29,10 @@ public static class DbInitializer
         var currentDirectory = Directory.GetCurrentDirectory();
         var relativePath = Path.GetRelativePath(currentDirectory, "../../../data/products-db/products.json");
 
+        if (dataJsonPath != null)
+        {
+            relativePath = dataJsonPath;
+        }
 
         // read json file into memory
         var productsJson = File.ReadAllText(relativePath);
