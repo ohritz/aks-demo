@@ -1,0 +1,42 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "resourceGroupName": {
+      "value": ""
+    },
+    "environmentName": {
+      "value": ""
+    },
+    "clusterName": {
+      "value": ""
+    },
+    "containerRegistryName": {
+      "value": ""
+    },
+    "location": {
+      "value": ""
+    },
+    "principalId": {
+      "value": ""
+    },
+    "cosmosAccountName": {
+      "value": ""
+    },
+    "cosmosDatabaseName": {
+      "value": ""
+    },
+    "sqlServerName": {
+      "value": ""
+    },
+    "sqlDatabaseName": {
+      "value": ""
+    },
+    "sqlAdminPassword": {
+      "value": ""
+    },
+    "appUserPassword": {
+      "value": ""
+    }
+  }
+}

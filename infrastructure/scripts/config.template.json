@@ -1,0 +1,15 @@
+{
+    "subscription": "subscription-name",
+    "subscriptionId": "subscriptionId",
+    "resourceGroup": "resourceGroup",
+    "location": "location",
+    "deploymentName": "deploymentName",
+    "adminname": "adminname-for-servicePrincipal",
+    "servicePrincipal": {
+        "appId": "appId",
+        "displayName": "displayName",
+        "fileWithCertAndPrivateKey": "path-to-file-with-cert-and-private-key",
+        "password": null,
+        "tenant": "tenant-id"
+    }
+}
