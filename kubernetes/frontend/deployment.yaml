@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: ${DOCKER_REGISTRY_AND_PATH}frontend:v2
+          ports:
+            - name: http
+              containerPort: 3050
+          env:
+            - name: PORT
+              value: "3050"
+            - name: NEXT_PUBLIC_GRAPHQL_API_URL
+              value: /graphql
+            - name: NEXT_PUBLIC_SERVER_GRAPHQL_API_URL
+              value: http://graphql-api-service/graphql
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi

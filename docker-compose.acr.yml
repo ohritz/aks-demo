@@ -2,25 +2,25 @@ version: "3.9"
 
 services:
   products-api:
-    image: ${DOCKER_REGISTRY_AND_PATH}products-api:v1
+    image: cbdemo2023registry.azurecr.io/products-api:v1
     build:
       context: ./src/products-api
       dockerfile: Dockerfile
   price-api:
-    image: ${DOCKER_REGISTRY_AND_PATH}price-api:v1
+    image: cbdemo2023registry.azurecr.io/price-api:v1
     build:
       context: ./src/price-api
       dockerfile: Dockerfile
   graphql-api:
-    image: ${DOCKER_REGISTRY_AND_PATH}graphql-api:v1
+    image: cbdemo2023registry.azurecr.io/graphql-api:v1
     build:
       context: ./src/graphql-api
       dockerfile: Dockerfile
   frontend:
-    image: ${DOCKER_REGISTRY_AND_PATH}frontend:v1
+    image: cbdemo2023registry.azurecr.io/frontend:v1
     build:
       context: ./src/frontend
       dockerfile: Dockerfile
       args:
-        - NEXT_PUBLIC_GRAPHQL_API_URL=http://localhost:3080/graphql
-        - NEXT_PUBLIC_SERVER_GRAPHQL_API_URL=http://graphql-api:3040/graphql
+        - NEXT_PUBLIC_GRAPHQL_API_URL=/graphql
+        - NEXT_PUBLIC_SERVER_GRAPHQL_API_URL=http://graphql-api-service/graphql

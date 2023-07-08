@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: graphql-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: graphql-api
+  template:
+    metadata:
+      labels:
+        app: graphql-api
+    spec:
+      containers:
+        - name: graphql-api
+          image: ${DOCKER_REGISTRY_AND_PATH}graphql-api:v1
+          ports:
+            - name: http
+              containerPort: 3040
+          env:
+            - name: PORT
+              value: "3040"
+            - name: PRODUCTS_API_URL
+              value: http://products-api-service
+            - name: PRICE_API_GRPC_URL
+              value: price-api-service:5000
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
