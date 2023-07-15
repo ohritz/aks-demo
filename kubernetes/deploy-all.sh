@@ -2,11 +2,10 @@
 
 export $(cat ./.env)
 
-rm allFiles.yaml
 rm deploy.yaml
 
 for file in $(find . -name "*.yaml"); do
-    echo "Deploying $file"
+    echo "Adding $file"
     cat $file >> allFiles.yaml;
     echo '---' >> allFiles.yaml
 done

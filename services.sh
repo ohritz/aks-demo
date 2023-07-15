@@ -23,7 +23,8 @@ startservices() {
     
     docker-compose up -d
     if [ -n "$seed" ]; then
-        docker-compose -f docker-compose.seed.yml up -d
+        docker-compose -f docker-compose.seed.yml up
+        docker-compose -f docker-compose.seed.yml down
     fi
 }
 
