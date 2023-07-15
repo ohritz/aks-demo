@@ -52,6 +52,7 @@ services:
       - ASPNETCORE_URLS=http://0.0.0.0:3030
       - ConnectionStrings__PriceDb
       - DATA_JSON_PATH=/app/products.json
+      - APPLICATIONINSIGHTS_CONNECTION_STRING=$APPLICATIONINSIGHTS_CONNECTION_STRING
     ports:
       - "3030:3030"
     volumes:

@@ -14,16 +14,23 @@ spec:
     spec:
       containers:
         - name: price-api
-          image: ${DOCKER_REGISTRY_AND_PATH}price-api:v1
+          image: ${DOCKER_REGISTRY_AND_PATH}price-api:v2
           ports:
             - name: http
               containerPort: 80
+          imagePullPolicy: Always
           env:
             - name: ConnectionStrings__PriceDb
               valueFrom:
                 secretKeyRef:
                   name: cb-demo-secret
                   key: PriceDbConnectionString
+                  optional: false
+            - name: APPLICATIONINSIGHTS_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: cb-demo-secret
+                  key: APPLICATIONINSIGHTS_CONNECTION_STRING
                   optional: false
           resources:
             requests:
