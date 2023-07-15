@@ -1,0 +1,10 @@
+{
+    "database": {
+        "connectionString": "",
+        "databaseName": "products"
+    },
+    "observability": {
+        "connectionString": "",
+        "roleName": "products-api"
+    }
+}

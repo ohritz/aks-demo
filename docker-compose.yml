@@ -35,7 +35,8 @@ services:
       - default
     environment:
       - PORT=3020
-      - MONGO_DB_URL=mongodb://products-db:27017/products
+      - AZURE_COSMOS_CONNECTION_STRING=mongodb://products-db:27017/products
+      - APPLICATIONINSIGHTS_CONNECTION_STRING=$APPLICATIONINSIGHTS_CONNECTION_STRING
     ports:
       - "3020:3020"
   price-api:
