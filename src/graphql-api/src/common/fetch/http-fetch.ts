@@ -1,12 +1,12 @@
 import { Response } from "node-fetch";
-import { DetailedApiError } from "./detailed-api-error.js";
+import { DetailedApiError } from "./detailed-api-error";
 import {
   fetchJsonWithOptionalResponse,
   fetchResponseBase,
   fetchResponseWithBodyBase,
   HttpMethod,
   HttpMethodWithBody,
-} from "./internal-fetchers.js";
+} from "./internal-fetchers";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface BodyBase {}

@@ -71,6 +71,7 @@ services:
       - PORT=3040
       - PRODUCTS_API_URL=http://products-api:3020
       - PRICE_API_GRPC_URL=price-api:3030
+      - APPLICATIONINSIGHTS_CONNECTION_STRING=$APPLICATIONINSIGHTS_CONNECTION_STRING
     ports:
       - "3040:3040"
     hostname: graphql-api

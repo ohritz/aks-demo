@@ -11,7 +11,7 @@ import {
   ServiceError,
   UntypedServiceImplementation,
 } from "@grpc/grpc-js";
-import _m0 from "protobufjs/minimal.js";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "PriceApi.Schema";
 

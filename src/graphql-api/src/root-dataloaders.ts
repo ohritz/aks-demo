@@ -1,8 +1,8 @@
-import { Logger } from "pino";
+import type { Logger } from "winston";
 import {
   createProductByCategoryLoader,
   createPriceByProductIdLoader,
-} from "./schema/products/dataloaders.js";
+} from "./schema/products/dataloaders";
 
 export type DataLoaders = ReturnType<typeof createDataLoaders>;
 

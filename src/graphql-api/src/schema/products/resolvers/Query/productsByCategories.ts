@@ -1,5 +1,5 @@
-import type { QueryResolvers } from "./../../../types.generated.js";
-import { fetchProductsByCategories } from "../../../../clients/products-api.js";
+import type { QueryResolvers } from "./../../../types.generated";
+import { fetchProductsByCategories } from "../../../../clients/products-api";
 export const productsByCategories: NonNullable<
   QueryResolvers["productsByCategories"]
 > = async (_parent, { categories }, _ctx) => {

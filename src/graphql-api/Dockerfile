@@ -24,6 +24,7 @@ ENTRYPOINT ["/tini", "--"]
 COPY --chown=1000:1000 --from=dependencies $HOME/package.json $HOME/package.json
 COPY --chown=1000:1000 --from=dependencies $HOME/node_modules $HOME/node_modules
 COPY --chown=1000:1000 --from=build $HOME/dist $HOME
+COPY --chown=1000:1000 ./config $HOME/config
 
 USER 1000
 

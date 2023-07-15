@@ -1,9 +1,9 @@
-import { createGrpcCredentials } from "./grpc-credentials-factory.js";
+import { createGrpcCredentials } from "./grpc-credentials-factory";
 import {
   ProductPriceServiceClient,
   PricesRequest,
   PriceDetail,
-} from "./grpc/proto/ProductPriceService.js";
+} from "./grpc/proto/ProductPriceService";
 
 const priceApiGrpcUrl = process.env.PRICE_API_GRPC_URL;
 

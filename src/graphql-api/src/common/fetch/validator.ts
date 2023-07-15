@@ -1,5 +1,5 @@
 import { Response } from "node-fetch";
-import { DetailedApiError } from "./detailed-api-error.js";
+import { DetailedApiError } from "./detailed-api-error";
 
 export const throwIfNotOk = async (
   response: Response,

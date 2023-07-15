@@ -14,10 +14,11 @@ spec:
     spec:
       containers:
         - name: graphql-api
-          image: ${DOCKER_REGISTRY_AND_PATH}graphql-api:v1
+          image: ${DOCKER_REGISTRY_AND_PATH}graphql-api:v2
           ports:
             - name: http
               containerPort: 3040
+          imagePullPolicy: Always
           env:
             - name: PORT
               value: "3040"
@@ -25,6 +26,12 @@ spec:
               value: http://products-api-service
             - name: PRICE_API_GRPC_URL
               value: price-api-service:5000
+            - name: APPLICATIONINSIGHTS_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: cb-demo-secret
+                  key: APPLICATIONINSIGHTS_CONNECTION_STRING
+                  optional: false
           resources:
             requests:
               cpu: 100m

@@ -1,0 +1,10 @@
+{
+    "dependencies": {
+        "productsApiUrl": "http://localhost:3020",
+        "priceApiGrpcUrl": "localhost:3030"
+    },
+    "observability": {
+        "connectionString": "",
+        "roleName": "graphql-api"
+    }
+}

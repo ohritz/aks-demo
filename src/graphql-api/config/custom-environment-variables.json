@@ -1,0 +1,10 @@
+{
+    "dependencies": {
+        "productsApiUrl": "PRODUCTS_API_URL",
+        "priceApiGrpcUrl": "PRICE_API_GRPC_URL"
+    },
+    "observability": {
+        "connectionString": "APPLICATIONINSIGHTS_CONNECTION_STRING",
+        "roleName": "APPLICATIONINSIGHTS_ROLE_NAME"
+    }
+}

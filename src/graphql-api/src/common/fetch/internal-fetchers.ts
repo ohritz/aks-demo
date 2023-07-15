@@ -1,8 +1,8 @@
 import fetch, { Response } from "node-fetch";
-import { logIfLocal } from "../log/local-logger.js";
-import { DetailedApiError } from "./detailed-api-error.js";
-import { formatMs } from "./time-formatter.js";
-import { throwIfNotOk } from "./validator.js";
+import { logger } from "../../config/logger";
+import { DetailedApiError } from "./detailed-api-error";
+import { formatMs } from "./time-formatter";
+import { throwIfNotOk } from "./validator";
 
 export type HttpMethod = "GET" | HttpMethodWithBody;
 export type HttpMethodWithBody = "POST" | "PUT" | "DELETE" | "PATCH";
@@ -29,7 +29,7 @@ export const fetchJsonWithOptionalResponse = async <TResponse>(
 
   const duration = Date.now() - start;
 
-  logIfLocal(`${response.status}`, {
+  logger.debug(`${response.status}`, {
     start,
     method: "GET",
     url,
@@ -69,7 +69,7 @@ export const fetchResponseBase = async (
   });
   const duration = Date.now() - start;
 
-  logIfLocal(`${response.status}`, {
+  logger.debug(`${response.status}`, {
     start,
     method,
     url,
@@ -100,7 +100,7 @@ export const fetchResponseWithBodyBase = async <TBody>(
 
   const duration = Date.now() - start;
 
-  logIfLocal(`${response.status}`, {
+  logger.debug(`${response.status}`, {
     start,
     method,
     url,

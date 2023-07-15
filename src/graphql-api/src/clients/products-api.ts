@@ -1,6 +1,7 @@
-import { fetchJsonWithGet } from "../common/fetch/http-fetch.js";
-
-const baseUrl = process.env.PRODUCTS_API_URL || "http://localhost:3020";
+import { fetchJsonWithGet } from "../common/fetch/http-fetch";
+import { getConfig } from "../config/index";
+const config = getConfig();
+const baseUrl = config.dependencies.productsApiUrl;
 
 export interface ApiProduct {
   _id: string;

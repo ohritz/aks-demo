@@ -1,7 +1,7 @@
 import { GraphQLResolveInfo } from "graphql";
-import { CategoryMapper } from "./categories/schema.mappers.js";
-import { ProductMapper } from "./products/schema.mappers.js";
-import { AppContext } from "../../src/context-factory.js";
+import { CategoryMapper } from "./categories/schema.mappers";
+import { ProductMapper } from "./products/schema.mappers";
+import { AppContext } from "../../src/context-factory";
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
