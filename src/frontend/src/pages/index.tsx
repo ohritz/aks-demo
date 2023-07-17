@@ -2,7 +2,7 @@ import Head from "next/head";
 import type { InferGetServerSidePropsType } from "next";
 import { Grid, GridItem } from "@chakra-ui/react";
 import { graphql } from "../gql";
-import { serverClient } from "../client/apollo-client";
+import { nodeApolloClient } from "../client/node-apollo-client";
 import { Categories } from "../features/home-page/categories";
 import { ProductTableFetcher } from "../features/home-page/product-table-fetcher";
 
@@ -33,7 +33,7 @@ const Home: React.FC<Props> = ({
 export default Home;
 
 export const getServerSideProps = async () => {
-  const { data } = await serverClient.query({
+  const { data } = await nodeApolloClient.query({
     query: graphql(`
       query Categories {
         categories {

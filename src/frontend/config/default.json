@@ -1,0 +1,7 @@
+{
+    "dependencies": {},
+    "observability": {
+        "connectionString": "",
+        "roleName": "web-backend"
+    }
+}

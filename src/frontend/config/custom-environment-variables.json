@@ -1,0 +1,6 @@
+{
+    "dependencies": {},
+    "observability": {
+        "connectionString": "APPLICATIONINSIGHTS_CONNECTION_STRING"
+    }
+}

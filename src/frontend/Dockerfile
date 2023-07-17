@@ -12,6 +12,7 @@ RUN chmod +x /tini && chown 1001:1001 /tini
 FROM dependencies as builder
 ARG NEXT_PUBLIC_GRAPHQL_API_URL
 ARG NEXT_PUBLIC_SERVER_GRAPHQL_API_URL
+ARG NEXT_PUBLIC_APPLICATIONINSIGHTS_CONNECTION_STRING
 WORKDIR /app
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
@@ -30,6 +31,7 @@ COPY --chown=1001:1001 --from=dependencies /tini /tini
 ENTRYPOINT ["/tini", "--"]
 
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/config ./config
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
