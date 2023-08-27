@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  seed-products-db:
+    image: mongo
+    command: mongoimport --collection=products --db=products --type json --jsonArray --uri "${AZURE_COSMOS_CONNECTION_STRING}" /products.json
+    volumes:
+      - ./data/products-db/products.json:/products.json
+  seed-price-db:
+    build:
+      context: ./
+      dockerfile: ./data/price-db/seed-app/Dockerfile
+    environment:
+      - ConnectionStrings__PriceDb=${AZURE_SQL_ADMIN_CONNECTION_STRING}
+      - DATA_JSON_PATH=/app/products.json
+    volumes:
+      - ./data/products-db/products.json:/app/products.json
