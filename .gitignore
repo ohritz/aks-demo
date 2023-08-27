@@ -4,8 +4,8 @@
 
 ### DotnetCore ###
 # .NET Core build folders
-bin/
-obj/
+**/bin/
+**/obj/
 
 # Common node modules locations
 /node_modules
@@ -190,3 +190,4 @@ dist
 # Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
 kubernetes/deploy.yaml
 kubernetes/secrets
+**/output.json

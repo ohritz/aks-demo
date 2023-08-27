@@ -7,6 +7,7 @@ param databaseName string
 param keyVaultName string
 param sqlAdmin string = 'sqlAdmin'
 param connectionStringKey string = 'AZURE-SQL-CONNECTION-STRING'
+param adminConnectionStringKey string = 'AZURE-SQL-ADMIN-CONNECTION-STRING'
 
 @secure()
 param sqlAdminPassword string
@@ -120,10 +121,20 @@ resource sqlAzureConnectionStringSercret 'Microsoft.KeyVault/vaults/secrets@2022
   }
 }
 
+resource sqlAzureAdminConnectionStringSercret 'Microsoft.KeyVault/vaults/secrets@2022-07-01' = {
+  parent: keyVault
+  name: adminConnectionStringKey
+  properties: {
+    value: '${adminConnectionString}; Password=${sqlAdminPassword}'
+  }
+}
+
 resource keyVault 'Microsoft.KeyVault/vaults@2022-07-01' existing = {
   name: keyVaultName
 }
 
 var connectionString = 'Server=${sqlServer.properties.fullyQualifiedDomainName}; Database=${sqlServer::database.name}; User=${appUser}'
+var adminConnectionString = 'Server=${sqlServer.properties.fullyQualifiedDomainName}; Database=${sqlServer::database.name}; User=${sqlAdmin}'
 output connectionStringKey string = connectionStringKey
+output adminConnectionStringKey string = adminConnectionStringKey
 output databaseName string = sqlServer::database.name

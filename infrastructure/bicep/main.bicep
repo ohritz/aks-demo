@@ -122,6 +122,7 @@ output AZURE_COSMOS_CONNECTION_STRING_KEY string = cosmos.outputs.connectionStri
 output AZURE_COSMOS_DATABASE_NAME string = cosmos.outputs.databaseName
 output AZURE_SQL_SERVER_NAME string = sqlServer.outputs.databaseName
 output AZURE_SQL_CONNECTION_STRING_KEY string = sqlServer.outputs.connectionStringKey
+output AZURE_SQL_ADMIN_CONNECTION_STRING_KEY string = sqlServer.outputs.adminConnectionStringKey
 
 // App outputs
 output APPLICATIONINSIGHTS_CONNECTION_STRING string = monitoring.outputs.applicationInsightsConnectionString
