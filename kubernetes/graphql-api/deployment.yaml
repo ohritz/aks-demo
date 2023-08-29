@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: graphql-api
-          image: ${DOCKER_REGISTRY_AND_PATH}graphql-api:v2
+          image: cbdemo2023registry.azurecr.io/graphql-api:v2.3
           ports:
             - name: http
               containerPort: 3040

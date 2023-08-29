@@ -7,7 +7,7 @@ networks:
 services:
   seed-products-db:
     image: mongo
-    command: mongoimport --collection products --type json --jsonArray --uri "$MONGO_DB_URI" /products.json
+    command: mongoimport --collection products --db products --type json --jsonArray --uri "$MONGO_DB_URI" /products.json
     volumes:
       - ./data/products-db/products.json:/products.json
   seed-price-db:

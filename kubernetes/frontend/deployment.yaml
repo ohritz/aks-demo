@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ${DOCKER_REGISTRY_AND_PATH}frontend:v2
+          image: ${DOCKER_REGISTRY_AND_PATH}frontend:v2.1
           ports:
             - name: http
               containerPort: 3050

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: products-api
-          image: cbdemo2023registry.azurecr.io/products-api:v2
+          image: cbdemo2023registry.azurecr.io/products-api:v2.2
           imagePullPolicy: Always
           ports:
             - name: http
@@ -24,7 +24,7 @@ spec:
             - name: PORT
               value: "3020"
             - name: AZURE_COSMOS_DATABASE_NAME
-              value: "cb-demo-mongo-product-db"
+              value: "products"
             - name: AZURE_COSMOS_CONNECTION_STRING
               valueFrom:
                 secretKeyRef:
