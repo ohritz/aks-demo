@@ -1,53 +1,53 @@
 import {
-  ApplicationInsightsOptions,
-  TelemetryClient,
-} from "applicationinsights";
+  AzureMonitorMetricExporter,
+  AzureMonitorTraceExporter,
+} from "@azure/monitor-opentelemetry-exporter";
+import {
+  BatchSpanProcessor,
+  NodeTracerProvider,
+} from "@opentelemetry/sdk-trace-node";
+import { getNodeAutoInstrumentations } from "@opentelemetry/auto-instrumentations-node";
 import { Resource } from "@opentelemetry/resources";
-import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions";
 import { registerInstrumentations } from "@opentelemetry/instrumentation";
-import { FetchInstrumentation } from "@opentelemetry/instrumentation-fetch";
-import { GraphQLInstrumentation } from "@opentelemetry/instrumentation-graphql";
+import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions";
+import {
+  MeterProvider,
+  PeriodicExportingMetricReader,
+} from "@opentelemetry/sdk-metrics";
 import { getConfig } from "./appConfig";
 const { observability } = getConfig();
 
-let appInsights: TelemetryClient | undefined;
-const customResource = Resource.EMPTY;
-customResource.attributes[SemanticResourceAttributes.SERVICE_NAME] =
-  observability.roleName;
+const roleNameResource = new Resource({
+  [SemanticResourceAttributes.SERVICE_NAME]: observability.roleName,
+});
 
-try {
-  const config: ApplicationInsightsOptions = {
-    azureMonitorExporterConfig: {
-      connectionString: observability.connectionString,
-    },
-    instrumentationOptions: {
-      http: { enabled: true },
-      azureSdk: { enabled: false },
-      mongoDb: { enabled: false },
-      mySql: { enabled: false },
-      postgreSql: { enabled: false },
-      redis: { enabled: false },
-    },
-    logInstrumentations: {
-      winston: { enabled: false },
-    },
-    resource: customResource,
-  };
+const traceProvider = new NodeTracerProvider({
+  resource: roleNameResource,
+});
 
-  appInsights = new TelemetryClient(config);
+const meterProvider = new MeterProvider({
+  resource: roleNameResource,
+});
 
-  registerInstrumentations({
-    instrumentations: [
-      new GraphQLInstrumentation(),
-      new FetchInstrumentation(),
-    ],
-  });
+traceProvider.register();
 
-  console.info("Added ApplicationInsights");
-} catch (err) {
-  console.error(
-    `ApplicationInsights setup failed, ensure environment variable 'APPLICATIONINSIGHTS_CONNECTION_STRING' has been set. Error: ${err}`
-  );
-}
+const metricExporter = new AzureMonitorMetricExporter({
+  connectionString: observability.connectionString,
+});
 
-export { appInsights };
+const traceExporter = new AzureMonitorTraceExporter({
+  connectionString: observability.connectionString,
+});
+
+const metricReader = new PeriodicExportingMetricReader({
+  exporter: metricExporter,
+});
+
+traceProvider.addSpanProcessor(new BatchSpanProcessor(traceExporter));
+meterProvider.addMetricReader(metricReader);
+
+registerInstrumentations({
+  instrumentations: [getNodeAutoInstrumentations()],
+  meterProvider: meterProvider,
+  tracerProvider: traceProvider,
+});

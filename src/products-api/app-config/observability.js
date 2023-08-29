@@ -1,58 +1,69 @@
 const {
-  ApplicationInsightsClient,
-  ApplicationInsightsConfig,
-} = require("applicationinsights");
+  AzureMonitorMetricExporter,
+  AzureMonitorTraceExporter,
+} = require("@azure/monitor-opentelemetry-exporter");
+const {
+  BatchSpanProcessor,
+  NodeTracerProvider,
+} = require("@opentelemetry/sdk-trace-node");
+const {
+  getNodeAutoInstrumentations,
+} = require("@opentelemetry/auto-instrumentations-node");
 const { Resource } = require("@opentelemetry/resources");
+const { registerInstrumentations } = require("@opentelemetry/instrumentation");
 const {
   SemanticResourceAttributes,
 } = require("@opentelemetry/semantic-conventions");
 const {
-  WinstonInstrumentation,
-} = require("@opentelemetry/instrumentation-winston");
-const {
-  MongooseInstrumentation,
-} = require("@opentelemetry/instrumentation-mongoose");
-const { HapiInstrumentation } = require("@opentelemetry/instrumentation-hapi");
-const { getConfig } = require("./index");
+  MeterProvider,
+  PeriodicExportingMetricReader,
+} = require("@opentelemetry/sdk-metrics");
 
+const { getConfig } = require("./index");
 const { observability } = getConfig();
 
-try {
-  const config = new ApplicationInsightsConfig();
-  config.azureMonitorExporterConfig.connectionString =
-    observability.connectionString;
+const roleNameResource = new Resource({
+  [SemanticResourceAttributes.SERVICE_NAME]: observability.roleName,
+});
 
-  config.instrumentations = {
-    http: { enabled: true },
-    azureSdk: { enabled: false },
-    mongoDb: { enabled: true },
-    mySql: { enabled: false },
-    postgreSql: { enabled: false },
-    redis: { enabled: false },
-  };
+const traceProvider = new NodeTracerProvider({
+  resource: roleNameResource,
+});
 
-  const customResource = Resource.EMPTY;
-  customResource.attributes[SemanticResourceAttributes.SERVICE_NAME] =
-    observability.roleName;
-  config.resource = customResource;
-  const appInsights = new ApplicationInsightsClient(config);
+const meterProvider = new MeterProvider({
+  resource: roleNameResource,
+});
 
-  const traceHandler = appInsights.getTraceHandler();
-  traceHandler.addInstrumentation(
-    new WinstonInstrumentation({
-      logHook: (span, record) => {
-        record["resource.service.name"] =
-          config.resource.attributes["service.name"];
+traceProvider.register();
+
+const metricExporter = new AzureMonitorMetricExporter({
+  connectionString: observability.connectionString,
+});
+
+const traceExporter = new AzureMonitorTraceExporter({
+  connectionString: observability.connectionString,
+});
+
+const metricReader = new PeriodicExportingMetricReader({
+  exporter: metricExporter,
+});
+
+traceProvider.addSpanProcessor(new BatchSpanProcessor(traceExporter));
+meterProvider.addMetricReader(metricReader);
+
+registerInstrumentations({
+  instrumentations: [
+    getNodeAutoInstrumentations({
+      "@opentelemetry/instrumentation-winston": {
+        logHook: (span, record) => {
+          record["resource.service.name"] = observability.roleName;
+        },
       },
-    })
-  );
-
-  traceHandler.addInstrumentation(new MongooseInstrumentation());
-  traceHandler.addInstrumentation(new HapiInstrumentation());
-
-  console.info("Added ApplicationInsights");
-} catch (err) {
-  console.error(
-    `ApplicationInsights setup failed, ensure environment variable 'APPLICATIONINSIGHTS_CONNECTION_STRING' has been set. Error: ${err}`
-  );
-}
+      "@opentelemetry/instrumentation-mongoose": {
+        requireParentSpan: true,
+      },
+    }),
+  ],
+  meterProvider: meterProvider,
+  tracerProvider: traceProvider,
+});

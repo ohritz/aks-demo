@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: products-api
-          image: cbdemo2023registry.azurecr.io/products-api:v2.2
+          image: cbdemo2023registry.azurecr.io/products-api:v2.3
           imagePullPolicy: Always
           ports:
             - name: http

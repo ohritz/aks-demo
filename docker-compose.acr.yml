@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   products-api:
-    image: ${DOCKER_REGISTRY_AND_PATH}/products-api:v2.2
+    image: ${DOCKER_REGISTRY_AND_PATH}/products-api:v2.3
     build:
       context: ./src/products-api
       dockerfile: Dockerfile
@@ -12,12 +12,12 @@ services:
       context: ./src/price-api
       dockerfile: Dockerfile
   graphql-api:
-    image: ${DOCKER_REGISTRY_AND_PATH}/graphql-api:v2.3
+    image: ${DOCKER_REGISTRY_AND_PATH}/graphql-api:v2.4
     build:
       context: ./src/graphql-api
       dockerfile: Dockerfile
   frontend:
-    image: ${DOCKER_REGISTRY_AND_PATH}/frontend:v2.1
+    image: ${DOCKER_REGISTRY_AND_PATH}/frontend:v2.3
     build:
       context: ./src/frontend
       dockerfile: Dockerfile
