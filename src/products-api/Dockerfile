@@ -1,6 +1,7 @@
 # --------- Dependencies layer --------------
 FROM node:18-bullseye as dependencies
-COPY --chown=1000:1000 ./package.json ./package-lock.json $HOME/
+WORKDIR /app
+COPY --chown=1000:1000 ./package.json ./package-lock.json ./
 RUN npm install --omit=dev
 ENV TINI_VERSION v0.19.0
 USER 0
@@ -14,8 +15,10 @@ EXPOSE 3000
 COPY --chown=1000:1000 --from=dependencies /tini /tini
 ENTRYPOINT ["/tini", "--"]
 
-COPY --chown=1000:1000 --from=dependencies $HOME/node_modules $HOME/node_modules
-COPY --chown=1000:1000 ./ $HOME/
+WORKDIR /app
+
+COPY --chown=1000:1000 --from=dependencies /app/node_modules ./node_modules
+COPY --chown=1000:1000 ./ ./
 
 USER 1000
 
