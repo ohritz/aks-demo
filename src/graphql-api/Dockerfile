@@ -1,6 +1,7 @@
 # --------- Dependencies layer --------------
 FROM node:18-bullseye as dependencies
-COPY --chown=1000:1000 ./package.json ./package-lock.json $HOME/
+WORKDIR /app
+COPY --chown=1000:1000 ./package.json ./package-lock.json ./
 RUN npm install --omit=dev
 ENV TINI_VERSION v0.19.0
 USER 0
@@ -9,7 +10,8 @@ RUN chmod +x /tini && chown 1000:1000 /tini
 
 # --------- Build layer --------------
 FROM dependencies as build
-COPY ./src/ $HOME/src/
+WORKDIR /app
+COPY ./src/ /app/src/
 COPY ./tsconfig.json ./.eslintrc.json ./.eslintignore ./
 RUN npm ci
 RUN npm run build
@@ -18,14 +20,16 @@ RUN npm run build
 FROM node:18-bullseye-slim as runtime
 LABEL maintainer="Sohan Fernando"
 EXPOSE 3040
+WORKDIR /app
+
 COPY --chown=1000:1000 --from=dependencies /tini /tini
 ENTRYPOINT ["/tini", "--"]
 
-COPY --chown=1000:1000 --from=dependencies $HOME/package.json $HOME/package.json
-COPY --chown=1000:1000 --from=dependencies $HOME/node_modules $HOME/node_modules
-COPY --chown=1000:1000 --from=build $HOME/dist $HOME
-COPY --chown=1000:1000 ./config $HOME/config
+COPY --chown=1000:1000 --from=dependencies /app/package.json /app/package.json
+COPY --chown=1000:1000 --from=dependencies /app/node_modules /app/node_modules
+COPY --chown=1000:1000 --from=build /app/dist /app/dist
+COPY --chown=1000:1000 ./config /app/config
 
 USER 1000
 
-CMD ["node", "index.js"]
+CMD ["node", "/app/dist/index.js"]

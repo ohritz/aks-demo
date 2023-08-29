@@ -1,2 +1,5 @@
 dist
 node_modules
+error.log
+exceptions.log
+coverage
