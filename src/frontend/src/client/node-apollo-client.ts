@@ -18,6 +18,6 @@ const link = new HttpLink({
 
 export const nodeApolloClient = new ApolloClient({
   cache: new InMemoryCache(),
-  connectToDevTools: true,
+  connectToDevTools: false,
   link,
 });
